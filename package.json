@@ -1,0 +1,19 @@
+{
+  "name": "aoc-2021",
+  "version": "1.0.0",
+  "description": "Advent of Code 2021",
+  "main": "run.js",
+  "author": "Kevin Hanna <kevindhanna@fastmail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^16.11.11",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "eslint": "^8.3.0",
+    "typescript": "^4.5.2"
+  },
+  "scripts": {
+    "lint": "tsc -p tsconfig.json --noEmit && eslint './*.ts'"
+  }
+}
