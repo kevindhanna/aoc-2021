@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import {
     assertWithError,
     Testable,
@@ -79,8 +78,8 @@ const buildArgs = (args: string[]) => {
     let input = path.replace("build/", "");
     input = Path.join(input, "input.txt");
 
-    assertWithError(Fs.existsSync(path), `#{path} doesn't exist`, true);
-    assertWithError(Fs.existsSync(input), `#{input} doesn't exist`, true);
+    assertWithError(Fs.existsSync(path), `${path} doesn't exist`, true);
+    assertWithError(Fs.existsSync(input), `${input} doesn't exist`, true);
 
     return {
         day: path,
@@ -105,7 +104,7 @@ const run = async ({ day, inputPath, options }: Args) => {
     }
 
     if (!options.testOnly) {
-        const input = Fs.readFileSync(inputPath);
+        const input = Fs.readFileSync(inputPath).toString();
         if (!options.bOnly) {
             const resultA =  runA(parseInput(input));
             logBold(`Day ${dayDir.name}A result: ${resultA}`)
