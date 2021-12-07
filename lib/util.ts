@@ -58,5 +58,5 @@ export const test: Asserter = (
 
 export interface Testable {
     input: any;
-    result: any;
+    result: number;
 }

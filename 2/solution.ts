@@ -1,3 +1,5 @@
+import { Testable } from "../lib";
+
 const exampleInput = `forward 5
 down 5
 forward 8
@@ -62,5 +64,5 @@ export const parseInput = (input: string): Instruction[] => {
 };
 export const runA = calculateSimplePosition;
 export const runB = calculateAimedPosition;
-export const testsA = [{ input: parseInput(exampleInput), result: 150 }];
-export const testsB = [{ input: parseInput(exampleInput), result: 900 }];
+export const testsA: Testable[] = [{ input: parseInput(exampleInput), result: 150 }];
+export const testsB: Testable[] = [{ input: parseInput(exampleInput), result: 900 }];

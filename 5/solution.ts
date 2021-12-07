@@ -1,3 +1,5 @@
+import { Testable } from "../lib";
+
 const exampleInput = `0,9 -> 5,9
 8,0 -> 0,8
 9,4 -> 3,4
@@ -82,5 +84,5 @@ export const runB = (lines: Line[]): number => {
     return map.countIntersections();
 }
 
-export const testsA = [{ input: parseInput(exampleInput), result: 5 }];
-export const testsB = [{ input: parseInput(exampleInput), result: 12 }];
+export const testsA: Testable[] = [{ input: parseInput(exampleInput), result: 5 }];
+export const testsB: Testable[] = [{ input: parseInput(exampleInput), result: 12 }];

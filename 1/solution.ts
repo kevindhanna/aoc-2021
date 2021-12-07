@@ -1,3 +1,5 @@
+import { Testable } from "../lib";
+
 const exampleInput = [
     199,
     200,
@@ -38,9 +40,9 @@ const countAveragedIncreases = (elevations: number[]): number => {
 export const parseInput = (input: string): number[] => input.split('\n').map((i) => parseInt(i));
 export const runA = countIncreases;
 export const runB = countAveragedIncreases;
-export const testsA = [
+export const testsA: Testable[] = [
     { input: [...exampleInput], result: 7 },
 ];
-export const testsB = [
+export const testsB: Testable[] = [
     { input: [...exampleInput], result: 5 },
 ];

@@ -1,3 +1,5 @@
+import { Testable } from "../lib";
+
 const exampleInput = "16,1,2,0,4,2,7,1,2,14";
 
 export const parseInput = (input: string): number[] => {
@@ -38,5 +40,5 @@ export const runB = (crabs: number[]): number => {
     return fuelFromAvg
 }
 
-export const testsA = [{ input: parseInput(exampleInput), result: 37 }]
-export const testsB = [{ input: parseInput(exampleInput), result: 168 }]
+export const testsA: Testable[] = [{ input: parseInput(exampleInput), result: 37 }]
+export const testsB: Testable[] = [{ input: parseInput(exampleInput), result: 168 }]

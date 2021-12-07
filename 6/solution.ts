@@ -1,3 +1,4 @@
+import { Testable } from "../lib";
 export const exampleInput = "3,4,3,1,2"
 
 export const parseInput = (input: string) => {
@@ -39,5 +40,5 @@ const simulate = (fish: number[], days: number) => {
 export const runA = (fish: number[]): number => simulate(fish, 80);
 export const runB = (fish: number[]): number => simulate(fish, 256);
 
-export const testsA = [{ input: parseInput(exampleInput), result: 5934 }];
-export const testsB = [{ input: parseInput(exampleInput), result: 26984457539 }];
+export const testsA: Testable[] = [{ input: parseInput(exampleInput), result: 5934 }];
+export const testsB: Testable[] = [{ input: parseInput(exampleInput), result: 26984457539 }];

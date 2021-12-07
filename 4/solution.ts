@@ -1,4 +1,5 @@
 import assert from "assert";
+import { Testable } from "../lib";
 
 const exampleInput = `7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
 
@@ -130,5 +131,5 @@ export const runB = ({ nums, boards }: Input) => {
     assert(result.board);
     return result.num * result.board.calculateScore()
 }
-export const testsA = [{ input: parseInput(exampleInput), result: 4512 }];
-export const testsB = [{ input: parseInput(exampleInput), result: 1924 }];
+export const testsA: Testable[] = [{ input: parseInput(exampleInput), result: 4512 }];
+export const testsB: Testable[] = [{ input: parseInput(exampleInput), result: 1924 }];

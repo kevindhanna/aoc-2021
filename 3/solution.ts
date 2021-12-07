@@ -1,3 +1,5 @@
+import { Testable } from "../lib";
+
 const exampleInput = `00100
 11110
 10110
@@ -73,5 +75,5 @@ export const runB = ({ nums, bits }: Input): number => {
     return ogr * co2r;
 }
 
-export const testsA = [{ input: parseInput(exampleInput), result: 198 }];
-export const testsB = [{ input: parseInput(exampleInput), result: 230 }];
+export const testsA: Testable[] = [{ input: parseInput(exampleInput), result: 198 }];
+export const testsB: Testable[] = [{ input: parseInput(exampleInput), result: 230 }];
