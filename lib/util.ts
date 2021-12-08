@@ -60,3 +60,9 @@ export interface Testable {
     input: any;
     result: number;
 }
+
+export function strongFind<T>(collection: T[], condition: (candidate: T) => boolean): T {
+    const result = collection.find(candidate => condition(candidate));
+    assert(result);
+    return result;
+}

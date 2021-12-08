@@ -1,5 +1,5 @@
-import assert from "assert";
-import { Testable } from "../lib";
+import assert from "assert/strict";
+import { strongFind, Testable } from "../lib";
 
 const exampleInput = `7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
 
@@ -90,14 +90,15 @@ export const parseInput = (raw: string): Input => {
 }
 
 export const runA = ({ nums, boards }: Input) => {
-    let result: any
+    let result!: [number, Board];
     nums.some(num => {
         if (boards.some(b => b.callNumber(num))) {
-            const winner = boards.find((b) => b.hasWon()) as Board;
+            const winner = strongFind<Board>(boards,(b) => b.hasWon());
             result = [num, winner];
             return true;
         }
     })
+
     return result[0] * result[1].calculateScore()
 }
 
