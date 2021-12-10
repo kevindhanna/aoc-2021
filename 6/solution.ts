@@ -21,17 +21,16 @@ const simulate = (fish: number[], days: number) => {
 
     let day = 0;
     while (day < days) {
-        const nextSets = [...fishAccumulators];
-        fishSets.forEach((f, i) => {
+        fishSets = fishSets.reduce((acc, f, i) => {
             if (i === 0) {
-                nextSets[8] = f;
-                nextSets[6] = f;
+                acc[8] = f;
+                acc[6] = f;
 
             } else {
-                nextSets[i - 1] += f;
+                acc[i - 1] += f;
             }
-        })
-        fishSets = nextSets;
+            return acc
+        }, [...fishAccumulators])
         ++day
     }
     return fishSets.reduce((p, n) => p + n)
