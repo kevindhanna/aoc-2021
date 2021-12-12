@@ -66,3 +66,9 @@ export function strongFind<T>(collection: T[], condition: (candidate: T) => bool
     assert(result);
     return result;
 }
+
+export function strongPop<T>(array: T[]): T {
+    const v = array.pop();
+    assert(v);
+    return v;
+}

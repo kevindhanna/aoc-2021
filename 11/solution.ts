@@ -1,5 +1,5 @@
 import assert from "assert/strict";
-import { Grid, Point } from "../lib";
+import { Grid, Point, strongPop } from "../lib";
 
 const exampleInput = `5483143223
 2745854711
@@ -61,15 +61,6 @@ class OctoMap extends Grid {
 };
 export const parseInput = (input: string): OctoMap => {
     return new OctoMap(input);
-}
-
-interface StrongArrayFn<T> {
-    (array: T[]): T;
-}
-const strongPop: StrongArrayFn<Point> = (array: Point[]) => {
-    const v = array.pop();
-    assert(v);
-    return v;
 }
 
 export const runA = (octos: OctoMap): number => {
