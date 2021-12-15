@@ -1,4 +1,3 @@
-import assert from "assert/strict";
 import { Grid, Point, strongPop } from "../lib";
 
 const exampleInput = `5483143223
