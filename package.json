@@ -15,6 +15,7 @@
   },
   "scripts": {
     "watch": "tsc --watch",
-    "lint": "tsc -p tsconfig.json --noEmit && eslint './*.ts'"
+    "lint": "tsc -p tsconfig.json --noEmit && eslint './*.ts'",
+    "solve": "node ./build/run.js"
   }
 }

@@ -40,5 +40,17 @@ export const runB = (crabs: number[]): number => {
     return fuelFromAvg
 }
 
-export const testsA: Testable[] = [{ input: parseInput(exampleInput), result: 37 }]
-export const testsB: Testable[] = [{ input: parseInput(exampleInput), result: 168 }]
+export const tests: Testable<number[], number>[] = [
+    {
+        description: "calculate mean fuel required",
+        input: parseInput(exampleInput),
+        result: 37,
+        fn: runA,
+    },
+    {
+        description: "calculate median fuel required",
+        input: parseInput(exampleInput),
+        result: 168,
+        fn: runB,
+    },
+]

@@ -6,9 +6,9 @@ const exampleInput =`2199943210
 8767896789
 9899965678`;
 
-class FloorMap extends Grid {};
+class FloorMap extends Grid<number> {};
 export const parseInput = (input: string): FloorMap => {
-    return new FloorMap(input);
+    return new FloorMap(input, parseInt);
 }
 
 const isLowest = (map: FloorMap, point: Point): boolean => {

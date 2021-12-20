@@ -132,11 +132,29 @@ export const runB = (start: Node): number => {
     return completedPaths.length;
 }
 
-export const testsA = [
-    { input: parseInput(exampleInputA), result: 10 },
-    { input: parseInput(exampleInputB), result: 19 },
-    { input: parseInput(exampleInputC), result: 226 },
-];
-export const testsB = [
-    { input: parseInput(exampleInputA), result: 36 },
+export const tests = [
+    {
+        description: "Count paths on small example map",
+        input: parseInput(exampleInputA),
+        result: 10,
+        fn: runA,
+    },
+    {
+        description: "Count paths on medium example map",
+        input: parseInput(exampleInputB),
+        result: 19,
+        fn: runA,
+    },
+    {
+        description: "Count paths on large example map",
+        input: parseInput(exampleInputC),
+        result: 226,
+        fn: runA,
+    },
+    {
+        description: "Count paths on small example map with ability to visit small node twice",
+        input: parseInput(exampleInputA),
+        result: 36,
+        fn: runB,
+    },
 ];

@@ -13,7 +13,7 @@ const exampleInput = `5483143223
 
 const asPoint = (point: string): Point => point.split(",").map(n => parseInt(n)) as Point;
 
-class OctoMap extends Grid {
+class OctoMap extends Grid<number> {
     tick(): Point[] {
         const flashed: Point[] = [];
         const entries = this.map.entries();
@@ -59,7 +59,7 @@ class OctoMap extends Grid {
     }
 };
 export const parseInput = (input: string): OctoMap => {
-    return new OctoMap(input);
+    return new OctoMap(input, parseInt);
 }
 
 export const runA = (octos: OctoMap): number => {
@@ -97,5 +97,17 @@ export const runB = (octos: OctoMap): number => {
     throw "Shouldn't get here"
 }
 
-export const testsA = [{ input: parseInput(exampleInput), result: 1656 }];
-export const testsB = [{ input: parseInput(exampleInput), result: 195 }];
+export const tests = [
+    {
+        description: "Count flashed octopodes",
+        input: parseInput(exampleInput),
+        result: 1656,
+        fn: runA,
+    },
+    {
+        description: "Find first simultaneous flash",
+        input: parseInput(exampleInput),
+        result: 195,
+        fn: runB,
+    },
+];

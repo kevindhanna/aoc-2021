@@ -84,5 +84,17 @@ export const runB = (lines: Line[]): number => {
     return map.countIntersections();
 }
 
-export const testsA: Testable[] = [{ input: parseInput(exampleInput), result: 5 }];
-export const testsB: Testable[] = [{ input: parseInput(exampleInput), result: 12 }];
+export const tests: Testable<Line[], number>[] = [
+    {
+        description: "Count horizonal and vertial intersections",
+        input: parseInput(exampleInput),
+        result: 5,
+        fn: runA,
+    },
+    {
+        description: "Count all intersections",
+        input: parseInput(exampleInput),
+        result: 12,
+        fn: runB,
+    },
+];

@@ -124,5 +124,17 @@ export const runB: Runner = ({ template, rules }): number => {
     return run(template, rules, 40);
 }
 
-export const testsA = [{ input: parseInput(exampleInput), result: 1588 }];
-export const testsB = [{ input: parseInput(exampleInput), result: 2188189693529 }];
+export const tests = [
+    {
+        description: "Calculate polymer for 10 iterations",
+        input: parseInput(exampleInput),
+        result: 1588,
+        fn: runA,
+    },
+    {
+        description: "Calculate polymer for 40 iterations",
+        input: parseInput(exampleInput),
+        result: 2188189693529,
+        fn: runB,
+    },
+];

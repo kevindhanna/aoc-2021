@@ -40,9 +40,17 @@ const countAveragedIncreases = (elevations: number[]): number => {
 export const parseInput = (input: string): number[] => input.split('\n').map((i) => parseInt(i));
 export const runA = countIncreases;
 export const runB = countAveragedIncreases;
-export const testsA: Testable[] = [
-    { input: [...exampleInput], result: 7 },
-];
-export const testsB: Testable[] = [
-    { input: [...exampleInput], result: 5 },
+export const testsA: Testable<number[], number>[] = [
+    {
+        description: "Count depth increases",
+        input: [...exampleInput],
+        result: 7,
+        fn: runA,
+    },
+    {
+        description: "Count window depth increases",
+        input: [...exampleInput],
+        result: 5,
+        fn: runB,
+    },
 ];

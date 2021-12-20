@@ -90,18 +90,11 @@ const buildArgs = (args: string[]) => {
 
 const run = async ({ day, inputPath, options }: Args) => {
     const dayDir = Path.parse(day);
-    const { parseInput, testsA, testsB, runA, runB } =  await import(day);
+    const { parseInput, tests, runA, runB } =  await import(day);
 
-    if (!options.bOnly) {
-        testsA.forEach(({ input, result }: Testable, i: number) => {
-            test(result, runA(input), `${day}A`, i + 1);
-        })
-    }
-    if (!options.aOnly) {
-        testsB.forEach(({ input, result }: Testable, i: number) => {
-            test(result, runB(input), `${day}B`, i + 1);
-        })
-    }
+    tests.forEach(({ description, input, result, fn }: Testable<unknown, unknown>, i: number) => {
+        test(`Day ${dayDir.name}:${i}`, description, result, fn(input));
+    })
 
     if (!options.testOnly) {
         const input = Fs.readFileSync(inputPath).toString();

@@ -39,5 +39,17 @@ const simulate = (fish: number[], days: number) => {
 export const runA = (fish: number[]): number => simulate(fish, 80);
 export const runB = (fish: number[]): number => simulate(fish, 256);
 
-export const testsA: Testable[] = [{ input: parseInput(exampleInput), result: 5934 }];
-export const testsB: Testable[] = [{ input: parseInput(exampleInput), result: 26984457539 }];
+export const tests: Testable<number[], number>[] = [
+    {
+        description: "simulate 80 days",
+        input: parseInput(exampleInput),
+        result: 5934,
+        fn: runA,
+    },
+    {
+        description: "simulate 256 days",
+        input: parseInput(exampleInput),
+        result: 26984457539,
+        fn: runB,
+    }
+];

@@ -1,15 +1,16 @@
 import { strict as assert, deepEqual } from "assert";
-import Path from "path";
 
 export const isNumeric = (val: string) => {
     return /^-?\d+$/.test(val);
 }
-
+const RED = "\x1b[31m%s\x1b[0m";
+const makeGrey = (s: string) => `\x1b[37m${s}\x1b[0m`
+const GREEN = "\x1b[32m%s\x1b[0m";
 const logRed = (message: string) => {
-    console.log("\x1b[31m%s\x1b[0m", message);
+    console.log(RED, message);
 };
 const logGreen = (message: string) => {
-    console.log("\x1b[32m%s\x1b[0m", message);
+    console.log(GREEN, message);
 };
 export const logBold = (message: string) => {
     console.log("\x1b[1m", message);
@@ -31,20 +32,18 @@ export const assertWithError = (condition: boolean, error: string, exit = false)
     }
 };
 
-type Asserter = (expected: unknown, actual: unknown, path: string, number?: number) => void;
+type Asserter = (testName: string, description: string, expected: unknown, actual: unknown) => void;
 export const test: Asserter = (
+    testName,
+    description,
     expected,
     actual,
-    path,
-    number?,
 ) => {
-    const pathDir = Path.parse(path);
-
     try {
         deepEqual(actual, expected)
     } catch (e) {
         logErrors(
-            `Day ${pathDir.name}:${number} failed!`,
+            `${testName} Failed! ${makeGrey(description)}`,
             "Expected:",
             actual,
             "to be equal to:",
@@ -53,12 +52,14 @@ export const test: Asserter = (
         return;
     }
 
-    logGreen(`Day ${pathDir.name}:${number} passed!`)
+    logGreen(`${testName} Passed! ${makeGrey(description)}`)
 };
 
-export interface Testable {
-    input: any;
-    result: number;
+export interface Testable<T, U> {
+    description: string;
+    input: T;
+    result: U;
+    fn: (input: T) => U;
 }
 
 export function strongFind<T>(collection: T[], condition: (candidate: T) => boolean): T {

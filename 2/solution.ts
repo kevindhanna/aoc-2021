@@ -64,5 +64,17 @@ export const parseInput = (input: string): Instruction[] => {
 };
 export const runA = calculateSimplePosition;
 export const runB = calculateAimedPosition;
-export const testsA: Testable[] = [{ input: parseInput(exampleInput), result: 150 }];
-export const testsB: Testable[] = [{ input: parseInput(exampleInput), result: 900 }];
+export const tests: Testable<Instruction[], number>[] = [
+    {
+        description: "",
+        input: parseInput(exampleInput),
+        result: 150,
+        fn: runA,
+    },
+    {
+        description: "",
+        input: parseInput(exampleInput),
+        result: 900,
+        fn: runB,
+    },
+];

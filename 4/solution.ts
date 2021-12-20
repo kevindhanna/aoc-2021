@@ -132,5 +132,17 @@ export const runB = ({ nums, boards }: Input) => {
     assert(result.board);
     return result.num * result.board.calculateScore()
 }
-export const testsA: Testable[] = [{ input: parseInput(exampleInput), result: 4512 }];
-export const testsB: Testable[] = [{ input: parseInput(exampleInput), result: 1924 }];
+export const tests: Testable<Input, number>[] = [
+    {
+        description: "final score of first board to finish",
+        input: parseInput(exampleInput),
+        result: 4512,
+        fn: runA,
+    },
+    {
+        description: "final score of last board to finish",
+        input: parseInput(exampleInput),
+        result: 1924,
+        fn: runB,
+    }
+];

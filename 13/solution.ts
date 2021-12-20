@@ -95,5 +95,11 @@ export const runB = ({ coords, folds }: Input): void => {
     print(map);
 }
 
-export const testsA = [{ input: parseInput(exampleInput), result: 17 }];
-export const testsB = [];
+export const tests = [
+    {
+        description: "Count visible dots",
+        input: parseInput(exampleInput),
+        result: 17,
+        fn: runA,
+    }
+];

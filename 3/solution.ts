@@ -75,5 +75,17 @@ export const runB = ({ nums, bits }: Input): number => {
     return ogr * co2r;
 }
 
-export const testsA: Testable[] = [{ input: parseInput(exampleInput), result: 198 }];
-export const testsB: Testable[] = [{ input: parseInput(exampleInput), result: 230 }];
+export const testsA: Testable<Input, number>[] = [
+    {
+        description: "Calc product of gamma and epison rate",
+        input: parseInput(exampleInput),
+        result: 198,
+        fn: runA,
+    },
+    {
+        description: "Calc product of O2 Gen and CO2 scrub rate",
+        input: parseInput(exampleInput),
+        result: 230,
+        fn: runB,
+    },
+];

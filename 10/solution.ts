@@ -1,3 +1,5 @@
+import { Testable } from "../lib";
+
 const exampleInput = `[({(<(())[]>[[{[]{<()<>>
 [(()[<>])]({[<{<<[]>>(
 {([(<{}[<>[]}>{[]{[(<()>
@@ -108,10 +110,35 @@ export const runB = (program: Program): number => {
     return scores[Math.floor(scores.length / 2)]
 }
 
-export const testsA = [{ input: parseInput(exampleInput), result: 26397 }]
-export const testsB = [
-    { input: parseInput(exampleInput), result: 288957 },
-    { input: parseInput('['), result: 2 },
-    { input: parseInput('(['), result: 11 },
-    { input: parseInput('[({([[{{'), result: 288957 },
+export const tests: Testable<Program, number>[] = [
+    {
+        description: "Calculate example debug score",
+        input: parseInput(exampleInput),
+        result: 26397,
+        fn: runA,
+    },
+    {
+        description: "Calculate autocomplete score of single bracket",
+        input: parseInput('['),
+        result: 2,
+        fn: runB,
+    },
+    {
+        description: "Calculate autocomplete score of two open brackets",
+        input: parseInput('(['),
+        result: 11,
+        fn: runB,
+    },
+    {
+        description: "Calculate autocomplete score of a bunch of open brackets",
+        input: parseInput('[({([[{{'),
+        result: 288957,
+        fn: runB,
+    },
+    {
+        description: "Calculate example autocomplete score",
+        input: parseInput(exampleInput),
+        result: 288957,
+        fn: runB,
+    },
 ]
