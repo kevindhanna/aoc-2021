@@ -1,36 +1,53 @@
 import assert from "assert/strict";
 
 export type Point = [number, number];
-export class Grid {
-    map: Map<string, number>;
+export class Grid<T> {
+    map: Map<string, T>;
     height: number;
     width: number;
 
-    constructor(input: string) {
+    constructor(input: string, parseFn: (val: string) => T) {
         this.map = new Map();
         const lines = input.split("\n").filter(l => l !== "");
-        this.width = lines[0].length;
+        this.width = lines[0]?.length || 0;
         this.height = lines.length;
         lines.forEach(
             (l, y) => l.split("").forEach(
                 (n, x) => {
-                    this.set([ y, x ], parseInt(n))
+                    this.set([ y, x ], parseFn(n));
                 }
-            )
+            ),
         );
     }
 
-    set(point: Point, val: number) {
-        this.map.set(point.join(), val)
+    set(point: Point, val: T) {
+        this.map.set(point.join(), val);
+    }
+    setString(point: string, val: T) {
+        this.map.set(point, val);
     }
     get(point: Point) {
-        return this.map.get(point.join())
+        return this.map.get(point.join());
+    }
+    stringGet(point: string) {
+        return this.map.get(point);
+    }
+    delete(point: Point) {
+        this.map.delete(point.join());
     }
     hasPoint(point: Point): boolean {
         return this.map.has(point.join());
     }
-    strongGet(point: Point): number {
+    hasStringPoint(point: string): boolean {
+        return this.map.has(point);
+    }
+    strongGet(point: Point): T {
         const val = this.get(point);
+        assert(val !== undefined);
+        return val
+    }
+    strongStringGet(point: string): T {
+        const val = this.stringGet(point);
         assert(val !== undefined);
         return val
     }
@@ -55,19 +72,31 @@ export class Grid {
             return neighbours
         }, []);
     }
-    print(): void {
-        const printed: number[][] = [];
+    entries() {
+        return this.map.entries();
+    }
+    setHeight(h: number) {
+        this.height = h;
+    }
+    setWidth(w: number) {
+        this.width = w;
+    }
+    asArray(): T[][] {
+        const array: T[][] = new Array(this.height);
         const entries = this.map.entries();
         let current = entries.next()
         while (!current.done) {
             const [coordsString, val] = current.value;
             const coords = coordsString.split(",").map(n => parseInt(n)) as [number, number];
-            if (!printed[coords[0]]) {
-                printed.push([]);
+            if (!array[coords[0]]) {
+                array[coords[0]] = new Array(this.width)
             }
-            printed[coords[0]].push(val);
+            array[coords[0]][coords[1]] = val;
             current = entries.next();
         }
-        console.log(printed.map(l => l.join(" ")).join('\n'), '\n')
+        return array;
+    }
+    print(): void {
+        console.log(this.asArray().map(l => l.join(" ")).join('\n'), '\n')
     }
 }
