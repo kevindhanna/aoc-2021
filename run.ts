@@ -3,7 +3,8 @@ import {
     assertWithError,
     Testable,
     test,
-    logBold
+  logBold,
+  isNumeric
 } from "./lib";
 import Path from "path";
 import Fs from "fs";
@@ -12,6 +13,7 @@ interface Options {
     testOnly: boolean;
     aOnly: boolean;
     bOnly: boolean;
+    testIndices: number[];
 }
 
 interface Args {
@@ -42,10 +44,11 @@ const handleOpt = (opt: string, options: Options): Options => {
 }
 
 const parseOptions = (args: string[]): Options => {
-    let options = {
+    let options: Options = {
         testOnly: false,
         aOnly: false,
         bOnly: false,
+        testIndices: []
     };
 
     args.forEach((arg) => {
@@ -57,6 +60,12 @@ const parseOptions = (args: string[]): Options => {
         if (arg.startsWith("-")) {
             const opts = arg.replace("-", "").split("");
             opts.forEach(opt => options = handleOpt(opt, options))
+            return;
+        }
+        if (isNumeric(arg)) {
+            const num = parseInt(arg);
+            assertWithError(num > 0, "Test number must be greater than 1", true);
+            options.testIndices.push(num);
             return;
         }
         assertWithError(false, `Invalid command line argument: ${arg}`, true)
@@ -92,9 +101,15 @@ const run = async ({ day, inputPath, options }: Args) => {
     const dayDir = Path.parse(day);
     const { parseInput, tests, runA, runB } =  await import(day);
 
-    tests.forEach(({ description, input, result, fn }: Testable<unknown, unknown>, i: number) => {
-        test(`Day ${dayDir.name}:${i}`, description, result, fn(input));
-    })
+    tests.forEach((testable: Testable<unknown, unknown>, i: number) => {
+        if (options.testIndices.length) {
+            if (options.testIndices.includes(i + 1)) {
+                test(testable, `Day ${dayDir.name}:${i + 1}`);
+            }
+        } else {
+            test(testable, `Day ${dayDir.name}:${i + 1}`);
+        }
+    });
 
     if (!options.testOnly) {
         const input = Fs.readFileSync(inputPath).toString();

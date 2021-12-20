@@ -1,11 +1,14 @@
-import { strict as assert, deepEqual } from "assert";
+import { strict as assert, deepStrictEqual } from "assert";
 
 export const isNumeric = (val: string) => {
     return /^-?\d+$/.test(val);
 }
 const RED = "\x1b[31m%s\x1b[0m";
-const makeGrey = (s: string) => `\x1b[37m${s}\x1b[0m`
 const GREEN = "\x1b[32m%s\x1b[0m";
+
+const makeGrey = (s: string) => `\x1b[37m${s}\x1b[0m`
+export const makeGreen = (s: string) => `\x1b[32m${s}\x1b[0m`
+
 const logRed = (message: string) => {
     console.log(RED, message);
 };
@@ -32,27 +35,28 @@ export const assertWithError = (condition: boolean, error: string, exit = false)
     }
 };
 
-type Asserter = (testName: string, description: string, expected: unknown, actual: unknown) => void;
-export const test: Asserter = (
-    testName,
-    description,
-    expected,
-    actual,
-) => {
+type Asserter = (testable: Testable<any, any>, testName: string) => void;
+export const test: Asserter = (testable, testName) => {
+    const { description, input, result, fn } = testable;
     try {
-        deepEqual(actual, expected)
+        const actual = fn(input);
+        try {
+            deepStrictEqual(actual, result)
+        } catch (e) {
+            logErrors(
+                `${testName} Failed! ${makeGrey(description)}`,
+                e,
+            );
+            return;
+        }
+        logGreen(`${testName} Passed! ${makeGrey(description)}`)
     } catch (e) {
         logErrors(
             `${testName} Failed! ${makeGrey(description)}`,
-            "Expected:",
-            actual,
-            "to be equal to:",
-            expected
-        );
-        return;
+            `Raised unexpected error:`,
+            e,
+        )
     }
-
-    logGreen(`${testName} Passed! ${makeGrey(description)}`)
 };
 
 export interface Testable<T, U> {
