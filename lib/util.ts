@@ -77,3 +77,9 @@ export function strongPop<T>(array: T[]): T {
     assert(v);
     return v;
 }
+
+export function strongShift<T>(array: T[]): T {
+    const v = array.shift();
+    assert(v);
+    return v;
+}
