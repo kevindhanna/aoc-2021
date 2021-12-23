@@ -69,7 +69,7 @@ const explode = (stack: string[], squidNum: string[]) => {
     }
 }
 
-const triggerExplosions = (squidNum: string[]): string[] {
+const triggerExplosions = (squidNum: string[]): string[] => {
     let stack: string[] = [];
     let depth = 0;
     while (squidNum.length) {

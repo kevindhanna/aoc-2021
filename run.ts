@@ -13,6 +13,7 @@ interface Options {
     testOnly: boolean;
     aOnly: boolean;
     bOnly: boolean;
+    runOnly: boolean;
     testIndices: number[];
 }
 
@@ -36,6 +37,10 @@ const handleOpt = (opt: string, options: Options): Options => {
             options.bOnly = true;
             break;
         }
+        case "r": {
+            options.runOnly = true;
+            break;
+        }
         default: {
             assertWithError(false, `Invalid command line argument: ${opt}`, true)
         }
@@ -48,6 +53,7 @@ const parseOptions = (args: string[]): Options => {
         testOnly: false,
         aOnly: false,
         bOnly: false,
+        runOnly: false,
         testIndices: []
     };
 
@@ -101,15 +107,17 @@ const run = async ({ day, inputPath, options }: Args) => {
     const dayDir = Path.parse(day);
     const { parseInput, tests, runA, runB } =  await import(day);
 
-    tests.forEach((testable: Testable<unknown, unknown>, i: number) => {
-        if (options.testIndices.length) {
-            if (options.testIndices.includes(i + 1)) {
+    if (!options.runOnly) {
+        tests.forEach((testable: Testable<unknown, unknown>, i: number) => {
+            if (options.testIndices.length) {
+                if (options.testIndices.includes(i + 1)) {
+                    test(testable, `Day ${dayDir.name}:${i + 1}`);
+                }
+            } else {
                 test(testable, `Day ${dayDir.name}:${i + 1}`);
             }
-        } else {
-            test(testable, `Day ${dayDir.name}:${i + 1}`);
-        }
-    });
+        });
+    }
 
     if (!options.testOnly) {
         const input = Fs.readFileSync(inputPath).toString();

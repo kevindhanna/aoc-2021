@@ -54,7 +54,7 @@ const min = (packet: Packet): Packet => {
     let min: Packet = executeCommand(packet.subPackets[0]);
     packet.subPackets.forEach(p => {
         p = executeCommand(p);
-        assert(p.value);
+        assert(p.value && min.value);
         if (p.value < min.value) {
             min = p;
         }
@@ -71,7 +71,7 @@ const max = (packet: Packet): Packet => {
     let max: Packet = executeCommand(packet.subPackets[0]);
     packet.subPackets.forEach(p => {
         p = executeCommand(p);
-        assert(p.value);
+        assert(p.value && max.value);
         if (p.value > max.value) {
             max = p;
         }
