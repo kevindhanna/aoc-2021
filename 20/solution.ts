@@ -158,7 +158,7 @@ const iterate = (algo: string, image: ImageMap, count: number): ImageMap => {
 }
 
 export const runA = ({ algo, image}: Input): number => {
-    image = iterate(algo, image, 2);
+    image = iterate(algo, image, 5);
     return countLit(image)
 }
 
