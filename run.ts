@@ -83,6 +83,7 @@ const parseOptions = (args: string[]): Options => {
 const buildArgs = (args: string[]) => {
     let [,, path] = args;
     const [,,, ...rest] = args;
+    const options = parseOptions(rest);
 
     assertWithError(!!path, "Must provide a path to a day!", true);
 
@@ -93,13 +94,16 @@ const buildArgs = (args: string[]) => {
     let input = path.replace("build/", "");
     input = Path.join(input, "input.txt");
 
-    assertWithError(Fs.existsSync(path), `${path} doesn't exist`, true);
-    assertWithError(Fs.existsSync(input), `${input} doesn't exist`, true);
+
+    if (!options.testOnly) {
+        assertWithError(Fs.existsSync(path), `${path} doesn't exist`, true);
+        assertWithError(Fs.existsSync(input), `${input} doesn't exist`, true);
+    }
 
     return {
         day: path,
         inputPath: input,
-        options: parseOptions(rest)
+        options: options,
     };
 };
 
